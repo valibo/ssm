@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+<!-- Spring mvc 的配置文件 -->
+	<!-- 自动扫描controller包下的所有类，使其认为spring mvc的控制器 -->
+	<context:component-scan base-package="org.valibo.crud.controller" use-default-filters="false">
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+		<context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice" />
+	</context:component-scan>
+	<!--  
+	1、当在web.xml 中   DispatcherServlet使用 <url-pattern>/</url-pattern> 映射时，且需要添加<mvc:default-servlet-handler/>和
+	<mvc:resources mapping="/resource/**" location="/resource/"/> 处理静态文件，就需要添加该配置 。
+	2、当在web.xml 中   DispatcherServlet使用 <url-pattern>*.do</url-pattern> 映射时,不需要添加该配置 。-->  
+	<mvc:annotation-driven/> 
+	
+	<!-- 当在web.xml 中   DispatcherServlet使用 <url-pattern>/</url-pattern> 映射时，能映射静态资源 -->
+	<mvc:default-servlet-handler/>
+	
+	<!-- 对模型视图名称的解析，即在模型视图名称添加前后缀   p:prefix="/WEB-INF/views/" p:suffix=".jsp" -->
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/views/"/>
+		<property name="suffix" value=".jsp"/>
+	</bean>
+	
+	
+	
+	
+	
+	
+
+</beans>
