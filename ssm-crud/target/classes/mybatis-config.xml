@@ -35,9 +35,14 @@
 	<typeAliases>
 		<package name="org.valibo.crud.bean" />
 	</typeAliases>
-	<!-- 分页插件 -->
+	<!-- 分页插件  https://github.com/pagehelper/Mybatis-PageHelper  
+	https://github.com/pagehelper/Mybatis-PageHelper/blob/master/README_zh.md
+	https://github.com/pagehelper/Mybatis-PageHelper/blob/master/wikis/zh/HowToUse.md
+	 -->
 	<plugins>
-		<plugin interceptor="com.github.pagehelper.PageInterceptor"></plugin>
+		<plugin interceptor="com.github.pagehelper.PageInterceptor">
+			<property name="reasonable" value="true"/>
+		</plugin>
 	</plugins>
 	
 </configuration>

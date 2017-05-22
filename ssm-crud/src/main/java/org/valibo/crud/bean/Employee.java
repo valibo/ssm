@@ -1,8 +1,12 @@
 package org.valibo.crud.bean;
 
+import javax.validation.constraints.Pattern;
+
 public class Employee {
 	private Integer empId;
 
+	
+	@Pattern(regexp="(^[a-zA-Z0-9_-]{6,16}$)|(^[\\u2E80-\\u9FFF]{2,5})",message="用户名必须为 2-5位汉字,6-16位 字母") 
 	private String empName;
 
 	private String gender;

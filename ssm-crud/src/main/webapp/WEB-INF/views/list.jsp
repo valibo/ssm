@@ -43,10 +43,6 @@
 					</thead>
 					<tbody>
 						<c:forEach items="${pageInfo.list}" var="emp">
-
-
-
-
 							<tr>
 								<td>${emp.empId}</td>
 								<td>${emp.empName}</td>
@@ -54,7 +50,6 @@
 								<td>${emp.email}</td>
 								<td>${emp.department.deptName}</td>
 								<td>
-
 									<button type="button" class="btn btn-primary btn-xs">
 										<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
 										新增
@@ -72,36 +67,38 @@
 		</div>
 		<!--  显示分页  -->
 		<div class="row">
-			<div class="col-md-6">
-				当前 ${pageInfo.pageNum } 页,总 ${pageInfo.pages } 页 ,共 ${pageInfo.total } 条记录
-			</div>
+			<div class="col-md-6">当前 ${pageInfo.pageNum } 页,总
+				${pageInfo.pages } 页 ,共 ${pageInfo.total } 条记录</div>
 			<div class="col-md-6">
 				<nav aria-label="Page navigation">
 				<ul class="pagination">
-				<li><a href="#" aria-label="Next"> <span
-							aria-hidden="true">首页</span>
-					</a></li>
-					<li><a href="#" aria-label="Previous"> <span
-							aria-hidden="true">&laquo;</span>
-					</a></li>
-					
+					<c:if test="${pageInfo.hasPreviousPage}">
+						<li><a href="${APP_PATH}/emps?pn=1" aria-label="Next"> <span
+								aria-hidden="true">首页</span>
+						</a></li>
+						<li><a href="${APP_PATH}/emps?pn=${pageInfo.pageNum -1}" aria-label="Previous"> <span
+								aria-hidden="true">&laquo;</span>
+						</a></li>
+					</c:if>
 					<c:forEach items="${pageInfo.navigatepageNums}" var="page_num">
 						<c:if test="${page_num == pageInfo.pageNum}">
 							<li class="active"><a href="#">${page_num}</a></li>
 						</c:if>
 						<c:if test="${page_num != pageInfo.pageNum}">
-							<li><a href="#">${page_num}</a></li>
+							<li><a href="${APP_PATH}/emps?pn=${page_num}">${page_num}</a></li>
 						</c:if>
 					</c:forEach>
-					<li><a href="#" aria-label="Next"> <span
-							aria-hidden="true">&raquo;</span>
-					</a></li>
-					<li><a href="#" aria-label="Next"> <span
+					<c:if test="${pageInfo.hasNextPage}">
+						<li><a href="${APP_PATH}/emps?pn=${pageInfo.pageNum+ 1}" aria-label="Next"> <span
+								aria-hidden="true">&raquo;</span>
+						</a></li>
+						<li><a href="${APP_PATH}/emps?pn=${pageInfo.pages}" aria-label="Next"> <span
 							aria-hidden="true">末页</span>
-					</a></li>
+						</a></li>
+					</c:if>
+					
 				</ul>
 				</nav>
-
 			</div>
 		</div>
 		<div class="row"></div>
