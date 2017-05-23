@@ -1,5 +1,6 @@
 package org.valibo.crud.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -96,5 +98,64 @@ public class EmployeeController {
 			return Msg.fail("用户名不可用");
 		}
 
+	}
+	
+	
+	/*
+	 * 查询员工
+	 * 
+	 * */
+	@ResponseBody
+	@RequestMapping(value = "/emp/{id}", method = RequestMethod.GET)
+	public Msg getEmp(@PathVariable("id")Integer empId){
+		Employee employee = employeeService.getEmp(empId);
+		return Msg.success("ok").add("emp", employee);
+	}
+	
+	/**
+	 * 员工更新方法
+	 * @param employee
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/emp/{empId}", method = RequestMethod.PUT)
+	public Msg updateEmp(Employee employee){
+		int cc = employeeService.updateEmp(employee);
+		return Msg.success("ok").add("cc", cc);
+	}
+	/*
+	@ResponseBody
+	@RequestMapping(value = "/emp/{id}", method = RequestMethod.DELETE)
+	public Msg delEmp(@PathVariable("id")Integer empId){
+		int cc = employeeService.deleteEmp(empId);
+		return Msg.success("ok").add("cc", cc);
+	}*/
+	
+	/**
+	 * 删除全部   
+	 * 
+	 * @param ids
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/emp/{ids}", method = RequestMethod.DELETE)
+	public Msg delBatch(@PathVariable("ids")String ids){
+		String splitstr ="-";
+		if(ids.contains(splitstr)){
+			List<Integer> idlist = new ArrayList<Integer>();
+			for (String id : ids.split(splitstr)) {
+				idlist.add(Integer.valueOf(id));
+			}
+			if(idlist.size() > 0){
+				employeeService.deleteBatch(idlist);
+			}
+			return Msg.success("处理成功");
+		}else{
+			int cc = employeeService.deleteEmp(Integer.valueOf(ids));
+			return Msg.success("处理成功").add("cc", cc);
+		}
+		
+		
+		
 	}
 }
